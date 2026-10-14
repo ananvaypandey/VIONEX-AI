@@ -18,7 +18,8 @@ stt:
   language: null          # null = auto-detect (Hindi/English/Hinglish), or "hi"/"en"
   languages: ["hi", "en"] # only these two are accepted as valid auto-detections
   fallback_language: "hi" # anything else (Greek/Urdu/...) is re-read as this
-  beam_size: 1            # 1 = greedy = fastest (raise to 5 for more accuracy)
+  beam_size: 5            # higher = more accurate (1 = fastest). 5 = much better on Hindi
+  initial_prompt: null    # optional vocabulary hint, e.g. "VIONEX, Namaste, hello, how are you"
   vad_filter: false       # we already split turns, so don't trim words again
 
 tts:

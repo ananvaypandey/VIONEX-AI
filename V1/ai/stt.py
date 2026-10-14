@@ -26,6 +26,8 @@ class Transcriber:
         self.beam_size = int(cfg.get("beam_size", 1))
         self.vad_filter = bool(cfg.get("vad_filter", True))
         self.sample_rate = int(cfg.get("sample_rate", 16000))
+        # Optional text prompt to bias spelling/vocabulary (proper nouns, etc.).
+        self.initial_prompt = cfg.get("initial_prompt") or None
         # We only ever expect Hindi or English. If auto-detect lands on
         # anything else (Greek, Urdu, Bengali, ...), re-read the audio as the
         # fallback language so we never emit a foreign script.
@@ -67,6 +69,7 @@ class Transcriber:
             beam_size=self.beam_size,
             vad_filter=self.vad_filter,
             condition_on_previous_text=False,
+            initial_prompt=self.initial_prompt,
         )
         detected = getattr(info, "language", None)
         prob = float(getattr(info, "language_probability", 0.0))
@@ -82,6 +85,7 @@ class Transcriber:
                 beam_size=self.beam_size,
                 vad_filter=self.vad_filter,
                 condition_on_previous_text=False,
+                initial_prompt=self.initial_prompt,
             )
             detected = getattr(info, "language", self.fallback_language)
             prob = float(getattr(info, "language_probability", 0.0))
