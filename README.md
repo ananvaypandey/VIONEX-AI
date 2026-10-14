@@ -25,12 +25,13 @@
 
 No cloud. No API keys. Your voice never leaves your machine.
 
-```text
-      ______      __   ______
-     /|_||_\`.__ ( (` / _____)     ...listening...
-    (   _    _ _\ \_)( (____
-    =`-(_)--(_)-'   \______)     VIONEX
-```
+<div align="center">
+
+<img src="assets/vionex-robot.svg" width="300" alt="Animated VIONEX robot — blinks, talks and waves" />
+
+<sub>🎙️ <b>...listening...</b></sub>
+
+</div>
 
 ## ✨ Features
 

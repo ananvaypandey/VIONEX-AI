@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 440" width="360" height="440" role="img" aria-label="Animated VIONEX robot">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1c2440"/>
+      <stop offset="1" stop-color="#0b1020"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </linearGradient>
+    <radialGradient id="core" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f472b6"/>
+      <stop offset="1" stop-color="#a855f7"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- whole robot gently floats -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 0 -8; 0 0" dur="3.4s" repeatCount="indefinite"/>
+
+    <!-- antenna + blinking beacon -->
+    <line x1="180" y1="74" x2="180" y2="46" stroke="url(#edge)" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="180" cy="40" r="7" fill="#f472b6" filter="url(#glow)">
+      <animate attributeName="fill" values="#f472b6;#22d3ee;#f472b6" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="7;9.5;7" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- head -->
+    <rect x="88" y="72" width="184" height="152" rx="42" fill="url(#body)" stroke="url(#edge)" stroke-width="3"/>
+    <rect x="112" y="98" width="136" height="104" rx="30" fill="#05070f"/>
+
+    <!-- eyes (blink) -->
+    <ellipse cx="150" cy="138" rx="12" ry="12" fill="#22d3ee" filter="url(#glow)">
+      <animate attributeName="ry" values="12;12;1.5;12;12" keyTimes="0;0.90;0.94;0.98;1" dur="4.4s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="210" cy="138" rx="12" ry="12" fill="#22d3ee" filter="url(#glow)">
+      <animate attributeName="ry" values="12;12;1.5;12;12" keyTimes="0;0.90;0.94;0.98;1" dur="4.4s" repeatCount="indefinite"/>
+    </ellipse>
+
+    <!-- mouth (talking) -->
+    <rect x="162" y="170" width="36" height="8" rx="4" fill="#a855f7" filter="url(#glow)">
+      <animate attributeName="height" values="5;22;5;22;5" dur="0.5s" repeatCount="indefinite"/>
+    </rect>
+
+    <!-- body + pulsing core -->
+    <rect x="104" y="238" width="152" height="132" rx="30" fill="url(#body)" stroke="url(#edge)" stroke-width="3"/>
+    <circle cx="180" cy="302" r="22" fill="url(#core)" filter="url(#glow)">
+      <animate attributeName="r" values="20;25;20" dur="1.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0.65;1" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+
+    <!-- left arm -->
+    <line x1="98" y1="264" x2="78" y2="344" stroke="url(#edge)" stroke-width="18" stroke-linecap="round"/>
+
+    <!-- right arm (waving hello) -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="-12 262 262; 34 262 262; -12 262 262" dur="1.3s" repeatCount="indefinite"/>
+      <line x1="264" y1="262" x2="288" y2="338" stroke="url(#edge)" stroke-width="18" stroke-linecap="round"/>
+    </g>
+
+    <!-- legs -->
+    <line x1="140" y1="370" x2="140" y2="406" stroke="#2b3560" stroke-width="16" stroke-linecap="round"/>
+    <line x1="220" y1="370" x2="220" y2="406" stroke="#2b3560" stroke-width="16" stroke-linecap="round"/>
+  </g>
+
+  <text x="180" y="434" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="6" fill="#22d3ee">VIONEX</text>
+</svg>
