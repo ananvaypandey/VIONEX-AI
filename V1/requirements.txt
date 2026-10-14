@@ -1,0 +1,18 @@
+# --- Speech input ---
+faster-whisper>=1.0.0        # local STT (hi + en + hinglish), pulls ctranslate2
+sounddevice>=0.4.6           # microphone capture / device IO
+soundfile>=0.12.1            # wav read/write helpers
+numpy>=1.24.0
+webrtcvad-wheels>=2.0.14     # always-on voice activity detection
+
+# --- Brain ---
+ollama>=0.3.0                # talks to the local ollama server (gemma3:4b)
+
+# --- Speech output ---
+edge-tts>=6.1.9              # Microsoft neural voices (Hindi + English)
+pygame>=2.5.0                # mp3 playback to PC speakers
+
+# --- Robot link + app ---
+pyserial>=3.5                # serial link to the Arduino (used later)
+PyYAML>=6.0
+colorama>=0.4.6

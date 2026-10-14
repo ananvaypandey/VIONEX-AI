@@ -1,0 +1,27 @@
+# VIONEX AI repository
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Runtime logs / scratch
+_run.log
+_run.err
+*.log
+
+# Large local TTS voice models (~60 MB each). GitHub blocks files >100 MB and
+# warns >50 MB, so they are NOT stored in git. Keep your own copy under
+# V1/voices/ (hi.onnx, ur.onnx, en.onnx + matching .onnx.json), or re-download:
+#   piper tts voices -> https://huggingface.co/rhasspy/piper-voices
+*.onnx
+*.onnx.json
+
+# OS / editor cruft
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/

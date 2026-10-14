@@ -1,0 +1,78 @@
+# ============================================================
+#  VIONEX AI - configuration
+#  Edit the values here; main.py reads this file at startup.
+# ============================================================
+
+ollama:
+  host: "http://127.0.0.1:11434"
+  model: "gemma3:4b"
+  temperature: 0.7
+  num_ctx: 2048      # smaller context = faster prefill (needs less RAM too)
+  num_predict: 200   # cap reply length -> faster generation
+  keep_alive: "30m"  # keep model in RAM between turns (avoids cold reloads)
+
+stt:
+  model: "small"          # tiny | base | small | medium | large-v3
+  device: "cpu"           # cpu | cuda
+  compute_type: "int8"    # int8 (cpu) | float16 (gpu)
+  language: null          # null = auto-detect (Hindi/English/Hinglish), or "hi"/"en"
+  languages: ["hi", "en"] # only these two are accepted as valid auto-detections
+  fallback_language: "hi" # anything else (Greek/Urdu/...) is re-read as this
+  beam_size: 1            # 1 = greedy = fastest (raise to 5 for more accuracy)
+  vad_filter: false       # we already split turns, so don't trim words again
+
+tts:
+  engine: "piper"         # piper (offline, ~0.1s) | edge (online, 1-10s, unstable)
+  piper:
+    # local .onnx voice models (paths relative to this config file)
+    voices:
+      hi: "voices/hi.onnx"    # Hindi female (priyamvada)
+      ur: "voices/ur.onnx"    # Urdu female (aegis)
+      en: "voices/en.onnx"    # English female (amy)
+  # edge-tts voices: the fallback engine, auto-picked from detected language.
+  voices:
+    hi: "hi-IN-SwaraNeural"       # Hindi (Devanagari)
+    ur: "ur-IN-GulNeural"         # Urdu (Arabic script)
+    en: "en-IN-NeerjaNeural"      # Indian English (good fallback for Hinglish)
+    default: "en-IN-NeerjaNeural"
+  rate: "+0%"
+  volume: "+0%"
+  pitch: "+0Hz"
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  input_device: null      # null = system default mic, or a device index/name
+  output_device: null     # null = system default speakers
+
+vad:
+  aggressiveness: 1       # webrtcvad: 0 (loose) .. 3 (aggressive filtering). Lower = catches softer speech
+  frame_ms: 20            # must be 10, 20 or 30
+  silence_ms: 700         # silence needed to end your turn (higher = fewer cut-offs)
+  speech_pad_ms: 500      # keep this much audio right before detected speech (don't clip first word)
+  min_speech_ms: 300      # ignore blips shorter than this
+  energy_threshold: 0.008 # fallback energy gate if webrtcvad is unavailable
+
+robot:
+  mode: "serial"          # mock | serial
+  port: "COM9"            # Arduino Uno; null = auto-detect
+  baud: 115200
+  # Command strings sent over serial (see PROTOCOL.md).
+  cmd_idle: "IDLE"
+  cmd_talk: "PLAY talk"
+  cmd_stop: "STOP"
+
+conversation:
+  max_history_turns: 6    # how many past turns to keep in context (fewer = faster)
+  play_talk_while_speaking: true
+  gesture_after_reply: true   # play the one-shot gesture (bye/hello/...) after speaking
+  gesture_wait_s: 3.0         # how long to let a one-shot gesture play before idling
+
+# Interrupt VIONEX mid-reply by just talking (voice "barge-in").
+# NOTE: needs the mic to hear you OVER the speaker. Headphones, or a mic kept
+# away from the speaker, make this far more reliable. Raise energy_threshold
+# if VIONEX keeps cutting itself off; lower it if it ignores your interruptions.
+barge_in:
+  enabled: true
+  energy_threshold: 0.02  # louder than normal speech (0.008) so speaker echo doesn't trigger it
+  min_speech_ms: 350      # sustained speech needed before we cut him off
